@@ -104,13 +104,14 @@ def open_proxy_txt():
     return url_list
 #-----------------------------------------------
 def web_parser():
-    id_num= 369
+    id_num= 2340
  
     driver_ = webdriver.Chrome(ChromeDriverManager().install())
     categories_list = []
     url = open_url_text()
 
-    apikey = "ee0d02cd9400c5a1544bf1afc936316e3025440d"
+    #apikey = "ee0d02cd9400c5a1544bf1afc936316e3025440d"
+    apikey = "6c598d0205ff02c2c019da91bf82070796b73895"
     response = requests.get("https://proxy.webshare.io/api/proxy/list/", headers={"Authorization": "Token " + apikey})
     json_response = response.json()
         
@@ -338,13 +339,13 @@ def web_parser():
         sql = ''' INSERT INTO database_restaurant(id,name,direction,rest_hours,phone,price, payment, categories, other, stars, count, links, ypLink)
                 VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?) '''
         value1 = (id_num, restName, direction, restHours, restHours, restaurant_price, payment, result_categories, restOther, stars, review_count, otherLinks, ypLink)
-
+        id_num = id_num + 1
         conn = sqlite3.connect('db.sqlite3')
         c = conn.cursor()
         c.execute(sql, value1)
         conn.commit()
         c.close()
-        id_num = id_num + 1
+        
 
     
     print("Done Parsing")
